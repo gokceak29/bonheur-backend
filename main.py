@@ -2,13 +2,15 @@ from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 import sqlite3
-import google.generativeai as genai
+import google.generativeai as genai 
+import os 
 
 app = FastAPI()
 
 # --- YAPAY ZEKA AYARLARI ---
-# Buradaki tırnak içine kendi API anahtarını yapıştır
-genai.configure(api_key="AIzaSyBedcOQFetXn9tgFyfHwQXIE1HtXfcEc8o") 
+# Buradaki tırnak içine kendi API anahtarını yapıştır 
+api_anahtari = os.environ.get("GEMINI_API_KEY") 
+genai.configure(api_key=api_anahtari) 
 yapay_zeka_modeli = genai.GenerativeModel('gemini-2.5-flash')
 
 app.add_middleware(
